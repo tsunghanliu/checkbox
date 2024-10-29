@@ -72,13 +72,13 @@ TPM2_ALG_ECB = 0x0044
 # TPM2_ALG_SYMCIPHER
 
 TPM2_CAP = {
-    "assymetric": set(),
+    "asymmetric": set(),
     "symmetric": set(),
     "hash": set(),
     "keyed_hash": set(),
     "mask_generation_functions": set(),
     "signature_schemes": set(),
-    "assymetric_encryption_scheme": set(),
+    "asymmetric_encryption_scheme": set(),
     "key_derivation_functions": set(),
     "aes_modes": set(),
     "pcr_banks": set(),
@@ -97,9 +97,9 @@ algs_list = yaml.load(algs_caps, Loader=yaml.FullLoader)
 pcrs_list = yaml.load(pcrs_caps, Loader=yaml.FullLoader)
 
 for alg, prop in algs_list.items():
-    # Assymetric
+    # Asymmetric
     if prop["value"] in (TPM2_ALG_RSA, TPM2_ALG_ECC):
-        TPM2_CAP["assymetric"].add(alg)
+        TPM2_CAP["asymmetric"].add(alg)
 
     # Symmetric
     if prop["value"] in (
@@ -148,9 +148,9 @@ for alg, prop in algs_list.items():
     ):
         TPM2_CAP["signature_schemes"].add(alg)
 
-    # Assymetric Encryption Scheme
+    # Asymmetric Encryption Scheme
     if prop["value"] in (TPM2_ALG_OAEP, TPM2_ALG_RSAES, TPM2_ALG_ECDH):
-        TPM2_CAP["assymetric_encryption_scheme"].add(alg)
+        TPM2_CAP["asymmetric_encryption_scheme"].add(alg)
 
     # Key derivation functions
     if prop["value"] in (
@@ -184,29 +184,29 @@ if "aes" in TPM2_CAP["symmetric"]:
             except KeyError:
                 pass
 
-if "ecc" in TPM2_CAP["assymetric"]:
+if "ecc" in TPM2_CAP["asymmetric"]:
     for alg_type in ("ecc", "ecc192", "ecc224", "ecc256", "ecc384", "ecc521"):
         try:
             subprocess.check_call(
                 ["tpm2_testparms", alg_type], stderr=subprocess.DEVNULL
             )
-            TPM2_CAP["assymetric"].add(alg_type)
+            TPM2_CAP["asymmetric"].add(alg_type)
         except subprocess.CalledProcessError:
             try:
-                TPM2_CAP["assymetric"].remove(alg_type)
+                TPM2_CAP["asymmetric"].remove(alg_type)
             except KeyError:
                 pass
 
-if "rsa" in TPM2_CAP["assymetric"]:
+if "rsa" in TPM2_CAP["asymmetric"]:
     for alg_type in ("rsa", "rsa1024", "rsa2048", "rsa4096"):
         try:
             subprocess.check_call(
                 ["tpm2_testparms", alg_type], stderr=subprocess.DEVNULL
             )
-            TPM2_CAP["assymetric"].add(alg_type)
+            TPM2_CAP["asymmetric"].add(alg_type)
         except subprocess.CalledProcessError:
             try:
-                TPM2_CAP["assymetric"].remove(alg_type)
+                TPM2_CAP["asymmetric"].remove(alg_type)
             except KeyError:
                 pass
 

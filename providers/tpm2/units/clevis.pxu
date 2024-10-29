@@ -36,7 +36,7 @@ _summary: Ensure the TPM has required capabilities for clevis RSA test
 command:
   tpm2_capabilities.py hash sha256 && \
   tpm2_capabilities.py pcr_banks sha256 && \
-  tpm2_capabilities.py assymetric rsa
+  tpm2_capabilities.py asyemmtric rsa
 
 id: clevis-encrypt-tpm2/rsa
 category_id: tpm2
@@ -62,7 +62,7 @@ _summary: Ensure the TPM has required capabilities for clevis ECC test
 command:
   tpm2_capabilities.py hash sha256 && \
   tpm2_capabilities.py pcr_banks sha256 && \
-  tpm2_capabilities.py assymetric ecc
+  tpm2_capabilities.py asyemmtric ecc
 
 id: clevis-encrypt-tpm2/ecc
 category_id: tpm2
